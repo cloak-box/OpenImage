@@ -89,12 +89,12 @@ dependencies {
     //bannar
     implementation 'io.github.youth5201314:banner:2.2.2'
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
 
     implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
 
     // 依赖androidx, 已升级AndroidX的项目集成下面的依赖
-    implementation "com.bytedance.tools.codelocator:codelocator-core:2.0.0"
+    implementation "com.bytedance.tools.codelocator:codelocator-core:2.0.4"
     implementation 'com.github.tbruyelle:rxpermissions:0.12'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.4'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
