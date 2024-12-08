@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import androidx.annotation.ColorInt;
 import androidx.core.view.ViewCompat;
@@ -456,24 +455,33 @@ public class StatusBarHelper {
    */
   public static void setFullScreen(Activity activity) {
     try {
-      Window window = activity.getWindow();
-      //        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-      window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-        WindowInsetsController insetsController = window.getInsetsController();
-        if (insetsController != null) {
-          insetsController.hide(android.view.WindowInsets.Type.navigationBars());
-        }
-      }else {
-        window
-            .getDecorView()
-            .setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-      }
+      fullScreen(activity, true);
     } catch (Exception ignored) {
     }
+  }
+
+  private static void fullScreen(Activity activity, boolean withStatus) {
+    var systemUiVisibility = getSystemUiVisibility();
+    if (withStatus) systemUiVisibility = systemUiVisibility | View.SYSTEM_UI_FLAG_FULLSCREEN;
+    var window = activity.getWindow();
+    window.getDecorView().setSystemUiVisibility(systemUiVisibility);
+    // 五要素隐私详情页或五要素弹窗关闭回到开屏广告时，再次设置SystemUi
+
+    // Android P 官方方法
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      var params = window.getAttributes();
+      params.layoutInDisplayCutoutMode =
+          WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+      window.setAttributes(params);
+    }
+  }
+
+  private static int getSystemUiVisibility() {
+    return View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
   }
 
   /**
@@ -482,11 +490,6 @@ public class StatusBarHelper {
    * @param activity
    */
   public static void cancelFullScreen(Activity activity) {
-    try {
-      Window window = activity.getWindow();
-      window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-    } catch (Exception ignored) {
-    }
-    //        window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+    fullScreen(activity, false);
   }
 }
