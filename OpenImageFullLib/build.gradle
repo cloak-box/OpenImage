@@ -1,6 +1,6 @@
-apply from: "$rootDir/gradle/lib.gradle"
+apply from: "../gradle/lib.gradle"
 
-apply from: "$rootDir/gradle/publish.gradle"
+//apply from: "../gradle/publish.gradle"
 
 apply plugin: "kotlin-parcelize"
 apply plugin: "kotlin-android"
@@ -17,8 +17,8 @@ dependencies {
 }
 
 
-import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
-
-mavenPublishing {
-    configure(new AndroidSingleVariantLibrary("release", true, true))
-}
+//import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
+//
+//mavenPublishing {
+//    configure(new AndroidSingleVariantLibrary("release", true, true))
+//}

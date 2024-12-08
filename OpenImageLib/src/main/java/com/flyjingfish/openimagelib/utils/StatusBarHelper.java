@@ -455,7 +455,7 @@ public class StatusBarHelper {
    */
   public static void setFullScreen(Activity activity) {
     try {
-      fullScreen(activity, true);
+      fullScreen(activity, false);
     } catch (Exception ignored) {
     }
   }
