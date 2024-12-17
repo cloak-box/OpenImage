@@ -133,11 +133,6 @@ dependencies {
     compileOnly("io.coil-kt.coil3:coil-network-okhttp:3.0.3")
 
 
-    if (TestType == "0"){
-        implementation project(path: ':OpenImageFullLib')
-        implementation project(path: ':OpenImageCoilLib')
-    }else if (TestType == "1"){
-        implementation 'io.github.FlyJingFish.OpenImage:OpenImageFullLib:'+TestVersion
-        implementation 'io.github.FlyJingFish.OpenImage:OpenImageCoilLib:'+TestVersion
-    }
+    implementation project(path: ':OpenImageFullLib')
+    implementation project(path: ':OpenImageCoilLib')
 }

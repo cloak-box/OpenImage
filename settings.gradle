@@ -1,10 +1,6 @@
 pluginManagement {
     repositories {
-        if (TestType == "0"){
-            mavenLocal()
-        }else if (TestType == "1"){
-            maven { url "https://s01.oss.sonatype.org/content/repositories/iogithubflyjingfish-"+SonatypeTestCode }
-        }
+        mavenLocal()
         google()
         mavenCentral()
         gradlePluginPortal()
@@ -13,11 +9,7 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        if (TestType == "0"){
-            mavenLocal()
-        }else if (TestType == "1"){
-            maven { url "https://s01.oss.sonatype.org/content/repositories/iogithubflyjingfish-"+SonatypeTestCode }
-        }
+        mavenLocal()
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }

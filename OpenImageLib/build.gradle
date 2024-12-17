@@ -1,9 +1,8 @@
 apply from: "../gradle/lib.gradle"
 
-//apply from: "../gradle/publish.gradle"
-
 apply plugin: "kotlin-parcelize"
 apply plugin: "kotlin-android"
+apply plugin: "com.black.cat.plugin.AndroidApiPublishPlugin"
 android {
     buildFeatures {
         viewBinding true
@@ -17,8 +16,40 @@ dependencies {
 }
 
 
-//import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
-//
-//mavenPublishing {
-//    configure(new AndroidSingleVariantLibrary("release", true, true))
-//}
+mavenPublishing {
+    mavenConfig { config->
+        config.getGroupId().set("io.github.cloak-box.library")
+        config.getArtifactId().set("OpenImageLib")
+        config.getVersion().set(open_image_lib_version)
+        config.getPublishJavadocJar().set(false)
+        config.getPoublicSourcesJar().set(false)
+        config.getMavenRepo().set("release")
+        config.getMavenCentralUsername().set(maven_central_username)
+        config.getMavenCentralPassword().set(maven_central_password)
+        pom {pomConfig->
+            pomConfig.getName().set("cloak box")
+            pomConfig.getDescription().set("A description of what my library does.")
+            pomConfig.getInceptionYear().set("2020")
+            pomConfig.getUrl().set("https://github.com/cloak-box/Vbox")
+            pomConfig.licenses {
+                license {
+                    name.set("GNU GENERAL PUBLIC LICENSE , Version 3, 29 June 2007")
+                    url.set("https://www.gnu.org/licenses/gpl-3.0.en.html#license-text")
+                    distribution.set("https://www.gnu.org/licenses/gpl-3.0.en.html#license-text")
+                }
+            }
+            pomConfig.developers {
+                developer {
+                    id.set("cloak box")
+                    name.set("cloak box")
+                    url.set("https://github.com/cloak-box")
+                }
+            }
+            pomConfig.scm {
+                url.set("https://github.com/cloak-box/Vbox")
+                connection.set("scm:git:git://github.com/cloak-box/Vbox.git")
+                developerConnection.set("scm:git:ssh://git@github.com/cloak-box/Vbox.git")
+            }
+        }
+    }
+}
