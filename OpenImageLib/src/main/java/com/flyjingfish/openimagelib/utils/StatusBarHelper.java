@@ -461,15 +461,15 @@ public class StatusBarHelper {
   }
 
   private static void fullScreen(Activity activity, boolean withStatus) {
-    var systemUiVisibility = getSystemUiVisibility();
+    int systemUiVisibility = getSystemUiVisibility();
     if (withStatus) systemUiVisibility = systemUiVisibility | View.SYSTEM_UI_FLAG_FULLSCREEN;
-    var window = activity.getWindow();
+    Window window = activity.getWindow();
     window.getDecorView().setSystemUiVisibility(systemUiVisibility);
     // 五要素隐私详情页或五要素弹窗关闭回到开屏广告时，再次设置SystemUi
 
     // Android P 官方方法
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-      var params = window.getAttributes();
+      WindowManager.LayoutParams params = window.getAttributes();
       params.layoutInDisplayCutoutMode =
           WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
       window.setAttributes(params);

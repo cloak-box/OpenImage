@@ -8,6 +8,14 @@ android {
         viewBinding true
     }
     namespace 'com.flyjingfish.openimagelib'
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = ["-Xno-param-assertions", "-Xno-receiver-assertions", "-Xno-call-assertions"]
+    }
 }
 dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
